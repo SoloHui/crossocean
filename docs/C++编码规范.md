@@ -121,46 +121,58 @@ enum UrlTableErrors
 ## 5. Doxygen 注释规则
 
 ### 5.1 文件注释
-- 文件注释通常放在整个文件开头。
 - 项目注释：
 ```cpp
-///////////////////////////////////////////////////////////////////////////
-/// @mainpage 项目注释
-/// @author 作者
-/// @version 版本
-/// @date 2019 年07 月10 日
-///////////////////////////////////////////////////////////////////////////
+/**
+ * @mainpage 项目注释
+ * @author your name (you@domain.com)
+ * @brief
+ * @details
+ * @version 0.1
+ * @date 2025-10-14
+ *
+ * @copyright Copyright (c) 2025
+ *
+ */
 ```
-- 文件注释：
+- 文件注释（通常放在整个文件开头）：
 ```cpp
-///////////////////////////////////////////////////////////////////////////
-/// @file 文件名
-/// @brief 简介
-/// @details 细节
+/**
+ * @file test_head1.h
+ * @author your name (you@domain.com)
+ * @brief
+ * @details
+ */
 ```
 
 ### 5.2 类定义注释
 ```cpp
-/// @brief 类的简单概述
-/// @details 类的详细概述
+/**
+ * @brief 类的简单概述
+ * @details 类的详细概述
+ */
 ```
 
 ### 5.3 常量/变量的注释
-- 代码前注释：`/// 常量/变量说明 常量/变量`
+- 代码前注释：`/// 常量/变量 说明`
 - 代码后注释：`常量/变量 ///< 说明`（一般用于变量数量较多且名字短的情况）
+
+```cpp
+/// 最大计数
+const int MAX_COUNT = 100;
+
+short index; ///< 索引值
+int count; ///< 计数器
+```
 
 ### 5.4 函数注释
 ```cpp
-/// @brief 函数简介
-/// @param 形参1 参数说明
-/// @param 形参2 参数说明
-/// @return 返回说明
+/**
+ * @brief 函数简介
+ * 
+ * @param 形参1 参数说明
+ * @param 形参2 参数说明
+ * @return true 返回值说明
+ * @return false 返回值说明
+ */
 ```
-
-### 5.5 Doxygen 设置使用
-- 设定项目名称和项目语言。
-- 设定编码方式（INPUT_ENCODING）：vs 的项目一般设置为GBK。
-- 其他设置可在Doxygen GUI frontend 中操作，步骤如下：
-  1. Step 1：指定Doxygen 运行的工作目录（Specify the working directory from which doxygen will run），点击“Select...”选择目录。
-  2. Step 2：通过Tizard 和/或Expert 标签配置Doxygen，然后切换到Run 标签生成文档（Configure doxygen using the Tizard and/or Expert tab, then switch to the Run tab to generate the documentation）。
-  3. 相关配置项示例：INPUT_ENCODING 可设为UTF-8，设置FILE_PATTERS、RECURSIVE 等参数。

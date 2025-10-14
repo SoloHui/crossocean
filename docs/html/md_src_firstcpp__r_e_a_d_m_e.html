@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>xms: XMS 项目代码结构说明</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">xms
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'搜索','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+</div><!-- top -->
+<div class="PageDoc"><div class="header">
+  <div class="headertitle">
+<div class="title">XMS 项目代码结构说明 </div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><h1><a class="anchor" id="autotoc_md1"></a>
+项目概述</h1>
+<p>XMS 是一个基于 CMake 构建系统的 C++ 项目，采用模块化设计，支持多子项目管理。</p>
+<h1><a class="anchor" id="autotoc_md2"></a>
+目录结构</h1>
+<div class="fragment"><div class="line">xms/</div>
+<div class="line">├── CMakeLists.txt              # 主项目CMake配置文件</div>
+<div class="line">├── CMakeLists.txt.user         # Qt Creator用户配置文件</div>
+<div class="line">├── LICENSE                     # 许可证文件</div>
+<div class="line">├── bin/                        # 可执行文件输出目录</div>
+<div class="line">│   └── firstcpp               # firstcpp子项目的可执行文件</div>
+<div class="line">├── build/                      # CMake构建目录</div>
+<div class="line">│   ├── cmake_install.cmake    # CMake安装脚本</div>
+<div class="line">│   ├── CMakeCache.txt         # CMake缓存文件</div>
+<div class="line">│   ├── compile_commands.json  # 编译命令数据库</div>
+<div class="line">│   ├── Makefile              # 生成的Makefile</div>
+<div class="line">│   └── CMakeFiles/           # CMake生成的临时文件</div>
+<div class="line">├── doc/                       # 文档目录</div>
+<div class="line">│   └── 代码结构.md            # 本文档</div>
+<div class="line">├── include/                   # 头文件目录（预留）</div>
+<div class="line">├── lib/                       # 库文件目录（预留）</div>
+<div class="line">└── src/                       # 源代码目录</div>
+<div class="line">    └── firstcpp/              # firstcpp子项目</div>
+<div class="line">        ├── CMakeLists.txt     # firstcpp子项目CMake配置</div>
+<div class="line">        └── main.cpp           # firstcpp主程序源文件</div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md3"></a>
+CMake 配置说明</h1>
+<h2><a class="anchor" id="autotoc_md4"></a>
+主项目配置 (&lt;tt&gt;/CMakeLists.txt&lt;/tt&gt;)</h2>
+<div class="fragment"><div class="line">cmake_minimum_required(VERSION 3.16)   # 最低CMake版本要求</div>
+<div class="line">project(xms LANGUAGES CXX)             # 项目名称和语言设置</div>
+<div class="line">add_subdirectory(src/firstcpp)         # 添加firstcpp子项目</div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md5"></a>
+firstcpp 子项目配置 (&lt;tt&gt;/src/firstcpp/CMakeLists.txt&lt;/tt&gt;)</h2>
+<div class="fragment"><div class="line">cmake_minimum_required(VERSION 3.16)                    # 最低CMake版本要求</div>
+<div class="line">project(firstcpp LANGUAGES CXX)                         # 子项目名称</div>
+<div class="line">set(CMAKE_CXX_STANDARD 17)                              # C++17标准</div>
+<div class="line">set(CMAKE_CXX_STANDARD_REQUIRED ON)                     # 强制要求C++17</div>
+<div class="line">add_executable(firstcpp main.cpp)                       # 创建可执行文件目标</div>
+<div class="line"> </div>
+<div class="line">include(GNUInstallDirs)                                  # 包含GNU安装目录定义</div>
+<div class="line">install(TARGETS firstcpp                                 # 安装配置</div>
+<div class="line">    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}          # 库文件安装目录</div>
+<div class="line">    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}          # 可执行文件安装目录</div>
+<div class="line">)</div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md6"></a>
+子项目说明</h1>
+<h2><a class="anchor" id="autotoc_md7"></a>
+firstcpp</h2>
+<ul>
+<li><b>功能</b>: 基础的 "Hello World" C++ 程序</li>
+<li><b>源文件</b>: <code>src/firstcpp/main.cpp</code></li>
+<li><b>编译产物</b>: 可执行文件 <code>firstcpp</code></li>
+<li><b>C++ 标准</b>: C++17</li>
+<li><b>依赖</b>: 仅依赖标准库</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md8"></a>
+main.cpp 内容</h2>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
+<div class="line"><span class="keyword">using namespace </span>std;</div>
+<div class="line"> </div>
+<div class="line"><span class="keywordtype">int</span> main()</div>
+<div class="line">{</div>
+<div class="line">    cout &lt;&lt; <span class="stringliteral">&quot;Hello World!&quot;</span> &lt;&lt; endl;</div>
+<div class="line">    <span class="keywordflow">return</span> 0;</div>
+<div class="line">}</div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md9"></a>
+构建说明</h1>
+<h2><a class="anchor" id="autotoc_md10"></a>
+构建命令</h2>
+<div class="fragment"><div class="line"># 创建并进入构建目录</div>
+<div class="line">mkdir -p build &amp;&amp; cd build</div>
+<div class="line"> </div>
+<div class="line"># 配置项目</div>
+<div class="line">cmake ..</div>
+<div class="line"> </div>
+<div class="line"># 编译项目</div>
+<div class="line">make</div>
+<div class="line"> </div>
+<div class="line"># 安装（可选）</div>
+<div class="line">make install</div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md11"></a>
+运行程序</h2>
+<div class="fragment"><div class="line"># 从构建目录运行</div>
+<div class="line">./src/firstcpp/firstcpp</div>
+<div class="line"> </div>
+<div class="line"># 或从bin目录运行（如果已安装）</div>
+<div class="line">./bin/firstcpp</div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md12"></a>
+扩展规划</h1>
+<p>项目结构设计支持未来扩展：</p><ul>
+<li><code>include/</code> 目录可用于存放公共头文件</li>
+<li><code>lib/</code> 目录可用于存放静态/动态库</li>
+<li><code>src/</code> 目录可添加更多子项目</li>
+<li>采用模块化CMake配置，便于管理多个子项目</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md13"></a>
+开发环境</h1>
+<ul>
+<li><b>CMake</b>: 3.16 或更高版本</li>
+<li><b>编译器</b>: 支持 C++17 的编译器（如 GCC 7+, Clang 5+, MSVC 2017+）</li>
+<li><b>构建系统</b>: Make（Linux/macOS）或 Visual Studio（Windows） </li>
+</ul>
+</div></div><!-- contents -->
+</div><!-- PageDoc -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+制作者&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+</small></address>
+</body>
+</html>

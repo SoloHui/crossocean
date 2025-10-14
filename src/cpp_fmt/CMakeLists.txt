@@ -7,7 +7,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_executable(cpp_fmt main.cpp
     test_head1.h test_head1.cpp
-    test_head2.h test_head2.cpp)
+    test_head2.h test_head2.cpp
+    i_thread.h
+)
 
 include(GNUInstallDirs)
 install(TARGETS cpp_fmt

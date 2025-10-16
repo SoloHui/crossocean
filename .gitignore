@@ -61,3 +61,6 @@ bin/
 
 # libs
 lib/
+
+# vscode
+.vscode/

@@ -2,12 +2,13 @@
 
 - `-it` 让容器交互式运行并分配伪终端
 - `--name crossocean` 给容器命名为 crossocean
-- `--network=host` 让容器使用宿主机网络
+- `-p 192.168.3.209:9340:9340/tcp` 映射宿主机的 9340/tcp 端口到容器的 9340/tcp 端口
+- `-p 192.168.3.209:9340:9340/udp` 映射宿主机的 9340/udp 端口到容器的 9340/udp 端口
 - `ubuntu:22.04` 使用 Ubuntu 22.04 镜像
 - `/bin/bash` 容器启动后运行 bash 终端
 
 ```bash
-docker run -it --name crossocean --network=host ubuntu:22.04 /bin/bash
+docker run -it --name crossocean -p 192.168.3.209:9340:9340/tcp -p 192.168.3.209:9340:9340/udp ubuntu:22.04 /bin/bash
 ```
 
 2. 进入容器
@@ -26,12 +27,12 @@ unminimize
 
 ```bash
 apt update
-apt install -y iputils-ping net-tools
 
 apt upgrade -y
 
 apt install -y vim git wget curl build-essential cmake
 
+apt install -y iputils-ping net-tools
 
 ```
 

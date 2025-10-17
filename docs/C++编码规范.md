@@ -107,7 +107,7 @@ private:
 ```
 
 #### 回调函数
-回调函数以`On`开头，例如`OnDataReceived()`。
+回调函数以`CB`结尾，例如`DataReceivedCB()`。
 
 ### 4.7 宏、枚举命名
 - 宏命名使用全部大写+下划线，例如`#define PI_ROUNDED 3.0`。

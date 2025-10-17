@@ -13,14 +13,14 @@
 
 namespace {  // 匿名命名空间用于限制内部符号作用域
 
-void OnSignal(evutil_socket_t /*fd*/, short /*events*/,
+void SignalCB(evutil_socket_t /*fd*/, short /*events*/,
               void* arg) {  // SIGINT信号回调，负责终止事件循环
   auto* base = static_cast<event_base*>(arg);  // 获取事件循环基础对象
   std::cout << "\nCaught SIGINT, shutting down." << std::endl;  // 输出提示信息
   event_base_loopbreak(base);  // 中断事件循环以实现优雅退出
 }
 
-void OnRead(bufferevent* bev,
+void ReadCB(bufferevent* bev,
             void* /*ctx*/) {  // 读取回调，处理客户端发来的数据
   evbuffer* input = bufferevent_get_input(bev);    // 获取输入缓冲区
   evbuffer* output = bufferevent_get_output(bev);  // 获取输出缓冲区
@@ -38,7 +38,7 @@ void OnRead(bufferevent* bev,
                response.size());  // 将响应写入输出缓冲区等待发送
 }
 
-void OnEvent(bufferevent* bev, short events,
+void EventCB(bufferevent* bev, short events,
              void* /*ctx*/) {    // 状态事件回调，处理连接关闭与错误
   if (events & BEV_EVENT_EOF) {  // 检测到对端正常关闭连接
     std::cout << "Client disconnected." << std::endl;  // 输出客户端断开提示
@@ -52,7 +52,7 @@ void OnEvent(bufferevent* bev, short events,
   bufferevent_free(bev);  // 释放bufferevent资源
 }
 
-void OnAccept(evconnlistener* listener,
+void AcceptCB(evconnlistener* listener,
               evutil_socket_t fd,  // 新连接回调，封装接受到的套接字
               sockaddr* address, int socklen,
               void* ctx) {                     // 提供客户端地址信息
@@ -69,13 +69,13 @@ void OnAccept(evconnlistener* listener,
     return;     // 返回等待下一次连接
   }
 
-  bufferevent_setcb(bev, OnRead, nullptr, OnEvent,
+  bufferevent_setcb(bev, ReadCB, nullptr, EventCB,
                     nullptr);                     // 注册读回调和事件回调
   bufferevent_enable(bev, EV_READ | EV_WRITE);    // 启用读写事件监听
   std::cout << "Client connected." << std::endl;  // 输出客户端连接成功
 }
 
-void OnAcceptError(evconnlistener* listener, void* /*ctx*/) {  // 监听器错误回调
+void AcceptErrorCB(evconnlistener* listener, void* /*ctx*/) {  // 监听器错误回调
   const int err = EVUTIL_SOCKET_ERROR();         // 获取最近一次socket错误码
   std::cerr << "Listener error " << err << ": "  // 输出错误码
             << evutil_socket_error_to_string(err) << std::endl;  // 输出错误描述
@@ -150,7 +150,7 @@ int main(int argc, char** argv) {  // 程序入口函数
       htons(static_cast<uint16_t>(server_port));  // 设置监听端口为server_port
 
   evconnlistener* listener = evconnlistener_new_bind(  // 创建监听器并绑定地址
-      base, OnAccept, base, LEV_OPT_REUSEABLE | LEV_OPT_CLOSE_ON_FREE,
+      base, AcceptCB, base, LEV_OPT_REUSEABLE | LEV_OPT_CLOSE_ON_FREE,
       -1,                                               // 配置监听器选项和回调
       reinterpret_cast<sockaddr*>(&sin), sizeof(sin));  // 传入绑定地址与长度
 
@@ -160,10 +160,10 @@ int main(int argc, char** argv) {  // 程序入口函数
     return 1;               // 返回非零错误码
   }
 
-  evconnlistener_set_error_cb(listener, OnAcceptError);  // 注册监听器错误回调
+  evconnlistener_set_error_cb(listener, AcceptErrorCB);  // 注册监听器错误回调
 
   event* signal_event =
-      evsignal_new(base, SIGINT, OnSignal, base);  // 创建SIGINT信号事件
+      evsignal_new(base, SIGINT, SignalCB, base);  // 创建SIGINT信号事件
   if (!signal_event ||
       event_add(signal_event, nullptr) < 0) {  // 检查信号事件是否创建并成功添加
     std::cerr << "Could not create SIGINT event handler."

@@ -154,10 +154,11 @@ int main(int argc, char** argv) {      // 程序入口，配置并运行 UDP 回
 
   // EV_ET(边缘触发-变化触发)
   // 默认是水平触发 EV_LEVEL(只要数据没有被读完就一直触发)
+  // event_self_cbarg() 作用: 传递当前创建的 event 作为回调参数
   event* read_event =
       event_new(base, fd, EV_READ | EV_PERSIST, ReadCB,
-                nullptr);  // 8 注册一个持久的读事件处理 UDP 套接字。
-  if (!read_event) {       // 判断事件创建是否成功。
+                event_self_cbarg());  // 8 注册一个持久的读事件处理 UDP 套接字。
+  if (!read_event) {                  // 判断事件创建是否成功。
     std::cerr << "Could not create UDP read event."
               << std::endl;  // 创建失败日志。
     event_base_free(base);   // 释放事件循环资源。
@@ -190,7 +191,10 @@ int main(int argc, char** argv) {      // 程序入口，配置并运行 UDP 回
   }
 
   std::cout << "test_event_udp listening on " << bind_ip << ':' << bind_port
-            << std::endl;     // 输出当前监听的地址与端口。
+            << std::endl;  // 输出当前监听的地址与端口。
+
+  // 事件主循环 监控事件是否发送过来 分发事件到相应的回调。
+  // 如果没有事件注册则退出
   event_base_dispatch(base);  // 15 进入 libevent 事件循环。
 
   event_free(read_event);    // 16 事件循环结束后释放读事件。

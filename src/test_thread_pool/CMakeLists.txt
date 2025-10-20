@@ -11,6 +11,7 @@ pkg_check_modules(LIBEVENT REQUIRED libevent)
 add_executable(test_thread_pool
     main.cpp
     hthread_pool.cpp
+    hthread.cpp
 )
 
 if(LIBEVENT_INCLUDE_DIRS)

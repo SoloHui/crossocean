@@ -11,8 +11,17 @@
 
 class HThread {
  public:
-  HThread(/* args */) {};
+  HThread();
   ~HThread();
+
+  // 启动线程
+  void Start();
+
+  // 线程入口函数
+  void Main();
+
+  // 线程编号
+  int id_;
 
  private:
   /* data */

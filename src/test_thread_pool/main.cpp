@@ -39,7 +39,7 @@ int main(int argc, char* argv[]) {
   HThreadPool* thread_pool = HThreadPool::GetInstance();
 
   // 初始化线程池，创建并启动指定数量的线程
-  int thread_num = 5;  // 示例线程数量
+  int thread_num = 2;  // 示例线程数量
   thread_pool->Init(thread_num);
 
   // 创建`libevent`上下文

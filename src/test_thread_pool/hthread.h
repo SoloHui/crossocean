@@ -9,6 +9,7 @@
  */
 #pragma once
 
+#include <event2/util.h>
 class HThread {
  public:
   HThread();
@@ -20,9 +21,16 @@ class HThread {
   // 线程入口函数
   void Main();
 
+  // 安装线程,初始化 event_base 和管道监听事件用于激活线程
+  bool Setup();
+
+  // 收到主线程发出的激活消息(线程池的分发任务)
+  void Notify(evutil_socket_t fd, short events);
+
   // 线程编号
   int id_;
 
  private:
-  /* data */
+  int notify_send_fd_ = 0;
+  struct event_base* base_ = nullptr;
 };

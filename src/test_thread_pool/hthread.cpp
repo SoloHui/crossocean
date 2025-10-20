@@ -31,11 +31,11 @@ void HThread::Main() {
   // 线程执行的任务
   // 这里可以添加具体的任务逻辑
 
-  cout << "Thread " << id_ << " begin." << endl;
+  cout << "HThread::Main() Thread " << id_ << " begin." << endl;
   // 运行事件循环，等待事件发生
   event_base_dispatch(base_);
   event_base_free(base_);
-  cout << "Thread " << id_ << " end." << endl;
+  cout << "HThread::Main() Thread " << id_ << " end." << endl;
 }
 
 static void NotifyCB(evutil_socket_t fd, short events, void* arg) {
@@ -53,7 +53,7 @@ bool HThread::Setup() {
   // fds[0] 用于读， fds[1] 用于写
   evutil_socket_t fds[2];
   if (evutil_socketpair(AF_INET, SOCK_STREAM, 0, fds) < 0) {
-    cerr << "Failed to create socketpair." << endl;
+    cerr << "HThread::Setup() Failed to create socketpair." << endl;
     return false;
   }
   // 设置非阻塞模式
@@ -64,7 +64,7 @@ bool HThread::Setup() {
   // 不能用 send/recv 只能用 read/write
   int fds[2];
   if (pipe(fds) == -1) {
-    cerr << "Failed to create pipe." << endl;
+    cerr << "HThread::Setup() Failed to create pipe." << endl;
     return false;
   }
 #endif
@@ -81,7 +81,7 @@ bool HThread::Setup() {
   event_config_free(ev_conf);
 
   if (!base_) {
-    cerr << "Failed to create event_base." << endl;
+    cerr << "HThread::Setup() Failed to create event_base." << endl;
     return false;
   }
 
@@ -111,5 +111,5 @@ void HThread::Notify(evutil_socket_t fd, short events) {
     return;
   }
   // 在这里处理线程被激活后的任务
-  cout << "Thread " << id_ << " activated." << endl;
+  cout << "HThread::Notify() Thread " << id_ << " activated." << endl;
 }

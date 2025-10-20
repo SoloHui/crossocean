@@ -8,6 +8,7 @@
 #include <signal.h>
 #endif
 
+#include "htask.h"
 #include "hthread_pool.h"
 
 using namespace std;
@@ -16,11 +17,15 @@ using namespace std;
 
 void ListenCB(struct evconnlistener* listener, evutil_socket_t fd,
               struct sockaddr* addr, int socklen, void* ctx) {
-  cout << "ListenCB called!" << endl;
+  cout << "Main::ListenCB() called!" << endl;
+  // 在这里可以创建一个具体的任务对象并分发给线程池
+  HTask* task = new HTask();  // 假设有一个具体的任务类继承自HTask
+  HThreadPool* thread_pool = HThreadPool::GetInstance();  // 获取线程池单例对象
+  thread_pool->Dispatch(task);
 }
 
 int main(int argc, char* argv[]) {
-  cout << "Test HThreadPool Start!" << endl;
+  cout << "Main::Test HThreadPool Start!" << endl;
 
 #ifdef _WIN32
   // 初始化 socket 环境
@@ -39,7 +44,7 @@ int main(int argc, char* argv[]) {
   // 创建`libevent`上下文
   event_base* base = event_base_new();
   if (!base) {
-    cerr << "Failed to create event base" << endl;
+    cerr << "Main::Failed to create event base" << endl;
     return -1;
   }
   // 创建监听器
@@ -62,7 +67,7 @@ int main(int argc, char* argv[]) {
   );
 
   if (!listener) {
-    cerr << "Failed to create listener" << endl;
+    cerr << "Main::Failed to create listener" << endl;
     event_base_free(base);
     return -1;
   }
@@ -84,6 +89,6 @@ int main(int argc, char* argv[]) {
   WSACleanup();
 #endif
 
-  cout << "Test HThreadPool End!" << endl;
+  cout << "Main::Test HThreadPool End!" << endl;
   return 0;
 }

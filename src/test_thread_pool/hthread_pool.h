@@ -12,6 +12,7 @@
 #include <vector>
 
 class HThread;
+class HTask;
 
 class HThreadPool {
  public:
@@ -24,6 +25,9 @@ class HThreadPool {
   // 初始化所有线程并启动
   void Init(int thread_num);
 
+  // 分发线程
+  void Dispatch(HTask* task);
+
  private:
   //  构造函数私有化，防止外部创建对象
   HThreadPool() {};
@@ -33,4 +37,6 @@ class HThreadPool {
   int thread_num_;
   // 线程容器
   std::vector<HThread*> threads_;
+  // 上一个分发任务的线程索引
+  int last_thread_index_ = -1;
 };

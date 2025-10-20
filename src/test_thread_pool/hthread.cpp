@@ -113,3 +113,19 @@ void HThread::Notify(evutil_socket_t fd, short events) {
   // 在这里处理线程被激活后的任务
   cout << "HThread::Notify() Thread " << id_ << " activated." << endl;
 }
+
+void HThread::Activate() {
+  // 向线程发送激活消息(通过管道写入数据)
+  char buf[1] = {'c'};  // 发送一个字节的数据作为激活信号
+#ifdef _WIN32
+  // Windows 下用 send 发送数据
+  ssize_t re = send(notify_send_fd_, buf, 1, 0);
+#else
+  // Unix/Linux 下用 write 发送数据
+  ssize_t re = write(notify_send_fd_, buf, 1);
+#endif
+  if (re <= 0) {
+    cerr << "HThread::Activate() Thread " << id_
+         << " failed to send activate signal." << endl;
+  }
+}

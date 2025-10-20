@@ -21,3 +21,24 @@ void HThreadPool::Init(int thread_num) {
     this_thread::sleep_for(std::chrono::milliseconds(10));  // 模拟线程启动延迟
   }
 }
+
+void HThreadPool::Dispatch(HTask* task) {
+  // 简单的轮询分发任务给线程
+  if (!task) {
+    cerr << "HThreadPool::Dispatch() Invalid task." << endl;
+    return;
+  }
+  // 简单的轮询分发任务给线程
+  if (threads_.empty()) {
+    cerr << "HThreadPool::Dispatch() No threads available to dispatch task."
+         << endl;
+    return;
+  }
+  int thread_index = (last_thread_index_ + 1) % thread_num_;
+  last_thread_index_ = thread_index;
+  HThread* thread = threads_[thread_index];
+  // 激活线程执行任务
+  thread->Activate();
+  cout << "HThreadPool::Dispatch() Dispatched task to thread " << thread->id_
+       << endl;
+}

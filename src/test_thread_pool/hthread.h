@@ -27,6 +27,9 @@ class HThread {
   // 收到主线程发出的激活消息(线程池的分发任务)
   void Notify(evutil_socket_t fd, short events);
 
+  // 线程激活
+  void Activate();
+
   // 线程编号
   int id_;
 

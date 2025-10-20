@@ -10,6 +10,12 @@
 #pragma once
 
 #include <event2/util.h>
+
+#include <list>
+#include <mutex>
+
+class HTask;
+
 class HThread {
  public:
   HThread();
@@ -30,10 +36,19 @@ class HThread {
   // 线程激活
   void Activate();
 
+  // 添加处理的任务
+  // 一个线程同时可以处理多个任务, 共用一个 event_base
+  void AddTask(HTask* task);
+
   // 线程编号
   int id_;
 
  private:
   int notify_send_fd_ = 0;
   struct event_base* base_ = nullptr;
+
+  // 任务列表
+  std::list<HTask*> tasks_;
+  // 线程安全 互斥
+  std::mutex tasks_mutex_;
 };

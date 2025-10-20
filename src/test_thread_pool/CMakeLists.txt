@@ -10,6 +10,7 @@ pkg_check_modules(LIBEVENT REQUIRED libevent)
 
 add_executable(test_thread_pool
     main.cpp
+    hftp_server_cmd.cpp
     hthread_pool.cpp
     hthread.cpp
 )

@@ -6,6 +6,8 @@
 #include <iostream>
 #include <thread>
 
+#include "htask.h"
+
 #ifndef _WIN32  // Unix/Linux 系统
 #include <unistd.h>
 #endif
@@ -112,6 +114,22 @@ void HThread::Notify(evutil_socket_t fd, short events) {
   }
   // 在这里处理线程被激活后的任务
   cout << "HThread::Notify() Thread " << id_ << " activated." << endl;
+
+  HTask* task = nullptr;
+  // 线程安全获取任务列表
+  tasks_mutex_.lock();
+  if (tasks_.empty()) {
+    tasks_mutex_.unlock();
+    cout << "HThread::Notify() Thread " << id_ << " has no tasks." << endl;
+    return;
+  }
+  task = tasks_.front();  // 先进先出
+  tasks_.pop_front();     // 从任务列表中移除任务
+  tasks_mutex_.unlock();
+
+  // 处理任务
+  cout << "HThread::Notify() Thread " << id_ << " processing task." << endl;
+  task->Init();
 }
 
 void HThread::Activate() {
@@ -128,4 +146,19 @@ void HThread::Activate() {
     cerr << "HThread::Activate() Thread " << id_
          << " failed to send activate signal." << endl;
   }
+}
+
+void HThread::AddTask(HTask* task) {
+  // 添加处理的任务
+  // 一个线程同时可以处理多个任务, 共用一个 event_base
+  if (!task) {
+    cerr << "HThread::AddTask() Invalid task." << endl;
+    return;
+  }
+  task->base_ = base_;
+  task->thread_id_ = id_;
+  // 线程安全添加任务到任务列表
+  tasks_mutex_.lock();
+  tasks_.push_back(task);
+  tasks_mutex_.unlock();
 }

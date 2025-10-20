@@ -10,6 +10,10 @@
 #pragma once
 class HTask {
  public:
-  HTask() {}
-  ~HTask() {}
+  struct event_base* base_ = nullptr;
+  int socket_fd_ = -1;
+  int thread_id_ = -1;
+
+  // 初始化任务
+  virtual bool Init() = 0;
 };

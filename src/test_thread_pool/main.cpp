@@ -8,7 +8,7 @@
 #include <signal.h>
 #endif
 
-#include "htask.h"
+#include "hftp_server_cmd.h"
 #include "hthread_pool.h"
 
 using namespace std;
@@ -19,7 +19,8 @@ void ListenCB(struct evconnlistener* listener, evutil_socket_t fd,
               struct sockaddr* addr, int socklen, void* ctx) {
   cout << "Main::ListenCB() called!" << endl;
   // 在这里可以创建一个具体的任务对象并分发给线程池
-  HTask* task = new HTask();  // 假设有一个具体的任务类继承自HTask
+  HTask* task = new HFTPServerCmd();
+  task->socket_fd_ = fd;
   HThreadPool* thread_pool = HThreadPool::GetInstance();  // 获取线程池单例对象
   thread_pool->Dispatch(task);
 }

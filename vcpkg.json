@@ -1,0 +1,17 @@
+{
+  "dependencies": [
+    {
+      "name": "libevent",
+      "features": [
+        "openssl",
+        "thread"
+      ]
+    },
+    {
+      "name": "protobuf",
+      "features": [
+        "zlib"
+      ]
+    }
+  ]
+}

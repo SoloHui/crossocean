@@ -1,4 +1,4 @@
-#include "hthread.h"
+﻿#include "hthread.h"
 
 #include <event2/event.h>
 #include <event2/thread.h>
@@ -103,7 +103,7 @@ void HThread::Notify(evutil_socket_t fd, short events) {
   char buf[1] = {0};
 #ifdef _WIN32
   // Windows 下用 recv 读取数据
-  ssize_t re = recv(fd, buf, 1, 0);
+  int re = recv(fd, buf, 1, 0);
 #else
   // Unix/Linux 下用 read 读取数据
   ssize_t re = read(fd, buf, 1);
@@ -137,7 +137,7 @@ void HThread::Activate() {
   char buf[1] = {'c'};  // 发送一个字节的数据作为激活信号
 #ifdef _WIN32
   // Windows 下用 send 发送数据
-  ssize_t re = send(notify_send_fd_, buf, 1, 0);
+  int re = send(notify_send_fd_, buf, 1, 0);
 #else
   // Unix/Linux 下用 write 发送数据
   ssize_t re = write(notify_send_fd_, buf, 1);

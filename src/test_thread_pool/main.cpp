@@ -1,4 +1,4 @@
-#include <event2/event.h>
+﻿#include <event2/event.h>
 #include <event2/listener.h>
 
 #include <cstring>
@@ -32,6 +32,8 @@ int main(int argc, char* argv[]) {
   // 初始化 socket 环境
   WSADATA wsa;
   WSAStartup(MAKEWORD(2, 2), &wsa);
+#else
+  // Unix/Linux 系统忽略 SIGPIPE 信号
   signal(SIGPIPE, SIG_IGN);
 #endif
 

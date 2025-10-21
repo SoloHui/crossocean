@@ -1,4 +1,4 @@
-#include "hftp_server_cmd.h"
+﻿#include "hftp_server_cmd.h"
 
 #include <event2/bufferevent.h>
 #include <event2/event.h>
@@ -13,7 +13,7 @@ static void ReadCB(struct bufferevent* bev, void* ctx) {
   HFTPServerCmd* cmd_task = static_cast<HFTPServerCmd*>(ctx);
   char buf[1024] = {0};
   for (;;) {
-    ssize_t n = bufferevent_read(bev, buf, sizeof(buf) - 1);
+    int n = bufferevent_read(bev, buf, sizeof(buf) - 1);
     if (n <= 0) {
       break;
     }

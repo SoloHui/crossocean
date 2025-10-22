@@ -22,3 +22,9 @@ lib/
 # vscode
 .vscode/
 .vs/
+
+# cmake
+CMakeUserPresets.json
+
+# doxygen
+docs/html/

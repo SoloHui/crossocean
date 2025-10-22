@@ -63,7 +63,13 @@ RECURSIVE              = YES
 GENERATE_HTML          = YES
 GENERATE_LATEX         = NO
 
+# 其他设置
+ALPHABETICAL_INDEX    = NO  # 关闭字母索引
+
 # 图表生成
+UML_LOOK               = YES
+DOT_UML_DETAILS        = YES
+DOT_IMAGE_FORMAT       = svg
 HAVE_DOT               = YES
 CALL_GRAPH             = YES
 CALLER_GRAPH           = YES

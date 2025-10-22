@@ -4,7 +4,7 @@
 #include <cstring>
 #include <iostream>
 
-#ifdef _WIN32
+#ifndef _WIN32
 #include <signal.h>
 #endif
 

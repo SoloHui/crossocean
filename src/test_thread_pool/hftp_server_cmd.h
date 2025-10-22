@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file hftp_server_cmd.h
  * @author L.J.H (3414467112@qq.com)
  * @brief HFTPServerCmd类声明

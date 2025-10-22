@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file hthread.h
  * @author L.J.H (3414467112@qq.com)
  * @brief HThread类声明

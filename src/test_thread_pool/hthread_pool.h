@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file hthread_pool.h
  * @author L.J.H (3414467112@qq.com)
  * @brief 线程池类声明(单件模式)

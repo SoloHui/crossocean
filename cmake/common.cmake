@@ -41,7 +41,7 @@ macro(set_cpp name)
     endif()
 
     if(NOT WIN32)
-        target_link_libraries(${name} pthread)
+        target_link_libraries(${name} PRIVATE pthread)
     endif()
     
     #############################################################
@@ -58,7 +58,9 @@ macro(set_cpp name)
         set(conf "")
         if(type)
             string(TOUPPER _${type} conf)
-            message("conf = ${conf}")
+            if("${type}" STREQUAL "${CMAKE_BUILD_TYPE}")
+                message("CMAKE_BUILD_TYPE = ${CMAKE_BUILD_TYPE}")
+            endif()
         endif()
         set_target_properties(${name} PROPERTIES
         RUNTIME_OUTPUT_DIRECTORY${conf} ${RUNTIME_DIR}  #dll  exe 执行程序
@@ -83,14 +85,15 @@ macro(set_cpp name)
     endif()
 
     if(NOT WIN32)
-        target_link_libraries(${name} pthread)
+        target_link_libraries(${name} PRIVATE pthread)
     endif()
 
 endmacro()
 
 
 function (cpp_test name)
-    message(STATUS "================ ${name} cpp_test =================")
+    message(STATUS "Building test: ${name}")
+    message("==========================================================================================")
 
     # 获取当前目录下源码和头文件
     get_src_include()
@@ -131,7 +134,7 @@ function (cpp_test name)
     # 打开才能运行ctest
     enable_testing() 
 
-    message(STATUS "======================================================")
+    message("==========================================================================================\n")
 endfunction()
 
 
@@ -139,9 +142,10 @@ endfunction()
 ############################
 ### 编译执行程序cpp_execute(<name> [lib1] [lib2...])
 function (cpp_execute name)
-    
-    message(STATUS "================ ${name} cpp_execute =================")
-    
+
+    message(STATUS "Building executable: ${name}")
+    message("==========================================================================================")
+
     # 获取当前目录下源码和头文件
     get_src_include()
 
@@ -161,13 +165,14 @@ function (cpp_execute name)
             target_link_libraries(${name} ${lib_name}${debug_postfix})
         endforeach()
     endif()
-    message(STATUS "======================================================")
+    message("==========================================================================================\n")
 endfunction()
 
 
 function(cpp_library name)
 
-    message(STATUS "================ ${name} cpp_library =================")
+    message(STATUS "Building library: ${name}")
+    message("==========================================================================================")
     
     #############################################################
     # 配置项目是否是动态库
@@ -236,5 +241,5 @@ function(cpp_library name)
     install(FILES ${CONF_VER_FILE}
         DESTINATION lib/config/${name}-${version}
     )
-    message(STATUS "======================================================")
+    message("==========================================================================================\n")
 endfunction()

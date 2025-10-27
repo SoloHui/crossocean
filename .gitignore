@@ -26,7 +26,7 @@ lib/
 
 # cmake
 CMakeUserPresets.json
-config.h
+crossocean.h
 
 # doxygen
 docs/html/

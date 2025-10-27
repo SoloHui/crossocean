@@ -7,7 +7,7 @@ project(hdisk_server LANGUAGES CXX)
 include(${CMAKE_SOURCE_DIR}/cmake/common.cmake)
 
 # 获取动态库
-list(PREPEND CMAKE_PREFIX_PATH "${CMAKE_SOURCE_DIR}/out")
+list(PREPEND CMAKE_PREFIX_PATH "${CMAKE_SOURCE_DIR}/lib")
 
 cpp_execute(${PROJECT_NAME} hcom)
 
@@ -18,5 +18,5 @@ endif()
 
 # 配置动态库的头文件路径
 target_include_directories(${PROJECT_NAME} PRIVATE
-    ${CMAKE_SOURCE_DIR}/out/include/hcom
+    ${CMAKE_SOURCE_DIR}/src/hcom/include
 )

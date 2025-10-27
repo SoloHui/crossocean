@@ -162,7 +162,7 @@ function (cpp_execute name)
         foreach(i RANGE 1 ${size} )
             message("target_link_libraries ${ARGV${i}}")
             set(lib_name ${ARGV${i}})
-            target_link_libraries(${name} ${lib_name}${debug_postfix})
+            target_link_libraries(${name} PRIVATE ${lib_name}${debug_postfix})
         endforeach()
     endif()
     message("==========================================================================================\n")
@@ -218,12 +218,12 @@ function(cpp_library name)
         EXPORT ${name}
         RUNTIME DESTINATION bin
         LIBRARY DESTINATION lib
-        PUBLIC_HEADER DESTINATION include
+        PUBLIC_HEADER DESTINATION include/${name}
     )
     
     # 支持find_package
     # 生成并安装配置文件 xlogConfig.cmake
-    instaLl(EXPORT ${name} FILE ${name}Config.cmake
+    install(EXPORT ${name} FILE ${name}Config.cmake
         DESTINATION lib/config/${name}-${version}
     )
 

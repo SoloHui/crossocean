@@ -26,13 +26,15 @@ unminimize
 4. 容器内安装常用工具
 
 ```bash
-apt update
+sudo apt update
 
-apt upgrade -y
+sudo apt upgrade -y
 
-apt install -y vim git wget curl build-essential cmake
+sudo apt install -y vim git wget curl build-essential cmake
 
-apt install -y iputils-ping net-tools
+sudo apt install -y iputils-ping net-tools
+
+sudo apt install -y ninja-build
 
 ```
 

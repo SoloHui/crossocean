@@ -13,3 +13,4 @@ project(xms LANGUAGES CXX)
 # add_subdirectory(src/test_event_udp)
 # add_subdirectory(src/test_thread_pool)
 
+add_subdirectory(src/hcom)

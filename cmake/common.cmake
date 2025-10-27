@@ -1,8 +1,11 @@
 # cmake/common.cmake
 
+# 公司名称缩写
+set(_COMPANY_NAME_ "co")
 # 统一的命名空间
-# cmakedefine _XCPP_NAMESPACE_ @_XCPP_NAMESPACE_@
-set(_XCPP_NAMESPACE_ "namespace xcpp {")
+set(_CROSSOCEAN_NAMESPACE_ "namespace co {")
+set(_USING_CROSSOCEAN_NAMESPACE_ "using namespace co;")
+
 # CMAKE_SOURCE_DIR是项目根目录
 set(RUNTIME_DIR ${CMAKE_SOURCE_DIR}/bin)
 set(LIBRARY_DIR ${CMAKE_SOURCE_DIR}/lib)

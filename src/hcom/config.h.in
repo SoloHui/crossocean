@@ -1,0 +1,24 @@
+﻿#ifndef CONFIG_H
+#define CONFIG_H
+//直接修改config.h无效，需要修改config.h.in
+
+// Namespace macros
+#define _END_NAMESPACE_ }
+#cmakedefine _CROSSOCEAN_NAMESPACE_  @_CROSSOCEAN_NAMESPACE_@
+#cmakedefine _USING_CROSSOCEAN_NAMESPACE_ @_USING_CROSSOCEAN_NAMESPACE_@
+
+#ifndef _WIN32
+	#define CROSSOCEAN_API 
+#else
+	#ifdef COM_STATIC
+		#define CROSSOCEAN_API 
+	#else
+		#if COM_EXPORTS
+			#define CROSSOCEAN_API __declspec(dllexport)
+		#else
+			#define CROSSOCEAN_API __declspec(dllimport)
+		#endif
+	#endif
+#endif
+
+#endif

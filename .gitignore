@@ -26,6 +26,7 @@ lib/
 
 # cmake
 CMakeUserPresets.json
+config.h
 
 # doxygen
 docs/html/

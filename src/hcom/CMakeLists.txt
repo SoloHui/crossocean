@@ -3,9 +3,9 @@
 # `hcom`库编译
 cmake_minimum_required(VERSION 3.16)
 
-project(hcom LANGUAGES CXX)
-
 include(${CMAKE_SOURCE_DIR}/cmake/common.cmake)
+
+project(com LANGUAGES CXX)
 
 # 根据系统类型查找 libevent 库
 if(WIN32)
@@ -27,3 +27,6 @@ else()
     target_link_libraries(${PROJECT_NAME} PRIVATE ${LIBEVENT_LIBRARIES})
     target_link_directories(${PROJECT_NAME} PRIVATE ${LIBEVENT_LIBRARY_DIRS})
 endif()
+
+# 生成c++代码，传递命名空间
+configure_file(config.h.in ${CMAKE_CURRENT_LIST_DIR}/include/config.h)

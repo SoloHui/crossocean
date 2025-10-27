@@ -29,4 +29,4 @@ else()
 endif()
 
 # 生成c++代码，传递命名空间
-configure_file(config.h.in ${CMAKE_CURRENT_LIST_DIR}/include/config.h)
+configure_file(crossocean.h.in ${CMAKE_CURRENT_LIST_DIR}/include/crossocean.h)

@@ -1,6 +1,6 @@
-﻿#ifndef CONFIG_H
-#define CONFIG_H
-//直接修改config.h无效，需要修改config.h.in
+﻿#ifndef CROSSOCEAN_H
+#define CROSSOCEAN_H
+// 直接修改crossocean.h无效，需要修改crossocean.h.in
 
 // Namespace macros
 #define _END_NAMESPACE_ }

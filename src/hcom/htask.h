@@ -10,7 +10,7 @@
 #ifndef HTASK_H
 #define HTASK_H
 
-#include "config.h"
+#include "crossocean.h"
 
 struct event_base;
 

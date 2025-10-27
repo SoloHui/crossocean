@@ -14,7 +14,7 @@
 #include <list>
 #include <mutex>
 
-#include "config.h"
+#include "crossocean.h"
 
 _CROSSOCEAN_NAMESPACE_
 

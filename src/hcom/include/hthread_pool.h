@@ -12,7 +12,7 @@
 
 #include <vector>
 
-#include "config.h"
+#include "crossocean.h"
 
 _CROSSOCEAN_NAMESPACE_
 

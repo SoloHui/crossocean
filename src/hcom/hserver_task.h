@@ -1,7 +1,7 @@
 ﻿#ifndef HSERVER_TASK_H
 #define HSERVER_TASK_H
 
-#include "config.h"
+#include "crossocean.h"
 #include "htask.h"
 
 typedef void (*ListenCBFunc)(int socket_fd, struct sockaddr* addr, int socklen,

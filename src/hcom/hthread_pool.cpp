@@ -15,6 +15,7 @@
 #include "htask.h"
 #include "hthread.h"
 using namespace std;
+_USING_CROSSOCEAN_NAMESPACE_
 
 /**
  * @brief 初始化线程池

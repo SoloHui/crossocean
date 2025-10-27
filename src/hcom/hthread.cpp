@@ -22,6 +22,7 @@
 #endif
 
 using namespace std;
+_USING_CROSSOCEAN_NAMESPACE_
 
 HThread::HThread() {}
 

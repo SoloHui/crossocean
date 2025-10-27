@@ -14,6 +14,10 @@
 #include <list>
 #include <mutex>
 
+#include "config.h"
+
+_CROSSOCEAN_NAMESPACE_
+
 class HTask;
 
 class HThread {
@@ -84,5 +88,7 @@ class HThread {
   /// @brief 线程安全 互斥
   std::mutex tasks_mutex_;
 };
+
+_END_NAMESPACE_
 
 #endif  // HTHREAD_H

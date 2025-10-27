@@ -10,22 +10,16 @@
 #ifndef HTHREAD_POOL_H
 #define HTHREAD_POOL_H
 
-#ifdef _WIN32
-#ifdef HCOM_EXPORTS
-#define HCOM_API __declspec(dllexport)
-#else
-#define HCOM_API __declspec(dllimport)
-#endif
-#else
-#define HCOM_API
-#endif
-
 #include <vector>
+
+#include "config.h"
+
+_CROSSOCEAN_NAMESPACE_
 
 class HThread;
 class HTask;
 
-class HCOM_API HThreadPool {
+class CROSSOCEAN_API HThreadPool {
  public:
   /**
    * @brief 获取`HThreadPool`的静态对象 （静态函数）
@@ -72,5 +66,7 @@ class HCOM_API HThreadPool {
   /// @brief 线程池列表
   std::vector<HThread*> threads_;
 };
+
+_END_NAMESPACE_
 
 #endif

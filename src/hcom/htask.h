@@ -9,6 +9,13 @@
  */
 #ifndef HTASK_H
 #define HTASK_H
+
+#include "config.h"
+
+struct event_base;
+
+_CROSSOCEAN_NAMESPACE_
+
 class HTask {
  public:
   /**
@@ -50,21 +57,23 @@ class HTask {
    *
    * @return struct event_base* 关联的event_base
    */
-  struct event_base* base() { return base_; }
+  ::event_base* base() { return base_; }
   /**
    * @brief 设置关联的event_base
    *
    * @param base 关联的event_base
    */
-  void set_base(struct event_base* base) { this->base_ = base; }
+  void set_base(::event_base* base) { this->base_ = base; }
 
  private:
   /// @brief 关联的 event_base
-  struct event_base* base_ = 0;
+  ::event_base* base_ = 0;
   /// @brief 关联的 socket
   int sock_ = 0;
   /// @brief 任务所属线程ID
   int thread_id_ = 0;
 };
+
+_END_NAMESPACE_
 
 #endif

@@ -1,13 +1,13 @@
 ﻿/**
  * @file hthread.cpp
  * @author L.J.H (3414467112@qq.com)
- * @brief `HThread`类实现
+ * @brief `Thread`类实现
  * @date 2025-10-24
  *
  * @copyright Copyright (c) 2025
  *
  */
-#include "hthread.h"
+#include "thread.h"
 
 #include <event2/event.h>
 #include <event2/thread.h>
@@ -15,7 +15,7 @@
 #include <iostream>
 #include <thread>
 
-#include "htask.h"
+#include "task.h"
 
 #ifndef _WIN32  // Unix/Linux 系统
 #include <unistd.h>
@@ -24,9 +24,9 @@
 using namespace std;
 _USING_CROSSOCEAN_NAMESPACE_
 
-HThread::HThread() {}
+Thread::Thread() {}
 
-HThread::~HThread() {}
+Thread::~Thread() {}
 
 /**
  * @brief 启动线程
@@ -34,12 +34,12 @@ HThread::~HThread() {}
  * @details 安装线程, 启动线程并绑定入口函数, 然后分离线程使其在后台运行
  *
  */
-void HThread::Start() {
+void Thread::Start() {
   // 安装线程,初始化 event_base 和管道监听事件用于激活线程
   Setup();
 
   // 启动线程，绑定Main函数为线程入口
-  thread t(&HThread::Main, this);
+  std::thread t(&Thread::Main, this);
 
   // 分离线程，使其在后台运行
   t.detach();
@@ -51,15 +51,15 @@ void HThread::Start() {
  * @details 线程执行的任务逻辑, 运行事件循环等待事件发生
  *
  */
-void HThread::Main() {
+void Thread::Main() {
   // 线程执行的任务
   // 这里可以添加具体的任务逻辑
 
-  cout << "HThread::Main() Thread " << id_ << " begin." << endl;
+  cout << "Thread::Main() Thread " << id_ << " begin." << endl;
   // 运行事件循环，等待事件发生
   event_base_dispatch(base_);
   event_base_free(base_);
-  cout << "HThread::Main() Thread " << id_ << " end." << endl;
+  cout << "Thread::Main() Thread " << id_ << " end." << endl;
 }
 
 /**
@@ -71,7 +71,7 @@ void HThread::Main() {
  */
 static void NotifyCB(evutil_socket_t fd, short events, void* arg) {
   // 静态函数(只在本文件使用) 作为管道可读事件的回调
-  HThread* thread = static_cast<HThread*>(arg);
+  Thread* thread = static_cast<Thread*>(arg);
   thread->Notify(fd, events);
 }
 
@@ -81,7 +81,7 @@ static void NotifyCB(evutil_socket_t fd, short events, void* arg) {
  * @return true 安装成功
  * @return false 安装失败
  */
-bool HThread::Setup() {
+bool Thread::Setup() {
   // 初始化 event_base 和管道监听事件用于激活线程
 
   // Windows 用配对 socketpair 模拟管道
@@ -90,7 +90,7 @@ bool HThread::Setup() {
   // fds[0] 用于读， fds[1] 用于写
   evutil_socket_t fds[2];
   if (evutil_socketpair(AF_INET, SOCK_STREAM, 0, fds) < 0) {
-    cerr << "HThread::Setup() Failed to create socketpair." << endl;
+    cerr << "Thread::Setup() Failed to create socketpair." << endl;
     return false;
   }
   // 设置非阻塞模式
@@ -101,7 +101,7 @@ bool HThread::Setup() {
   // 不能用 send/recv 只能用 read/write
   int fds[2];
   if (pipe(fds) == -1) {
-    cerr << "HThread::Setup() Failed to create pipe." << endl;
+    cerr << "Thread::Setup() Failed to create pipe." << endl;
     return false;
   }
 #endif
@@ -118,7 +118,7 @@ bool HThread::Setup() {
   event_config_free(ev_conf);
 
   if (!base_) {
-    cerr << "HThread::Setup() Failed to create event_base." << endl;
+    cerr << "Thread::Setup() Failed to create event_base." << endl;
     return false;
   }
 
@@ -141,7 +141,7 @@ bool HThread::Setup() {
  * @param fd  管道读取端文件描述符
  * @param events  事件类型
  */
-void HThread::Notify(evutil_socket_t fd, short events) {
+void Thread::Notify(evutil_socket_t fd, short events) {
   // 水平触发模式下循环读取数据(直到接受完毕)
   char buf[1] = {0};
 #ifdef _WIN32
@@ -156,14 +156,14 @@ void HThread::Notify(evutil_socket_t fd, short events) {
     return;
   }
   // 在这里处理线程被激活后的任务
-  cout << "HThread::Notify() Thread " << id_ << " activated." << endl;
+  cout << "Thread::Notify() Thread " << id_ << " activated." << endl;
 
-  HTask* task = nullptr;
+  Task* task = nullptr;
   // 线程安全获取任务列表
   tasks_mutex_.lock();
   if (tasks_.empty()) {
     tasks_mutex_.unlock();
-    cout << "HThread::Notify() Thread " << id_ << " has no tasks." << endl;
+    cout << "Thread::Notify() Thread " << id_ << " has no tasks." << endl;
     return;
   }
   task = tasks_.front();  // 先进先出
@@ -171,7 +171,7 @@ void HThread::Notify(evutil_socket_t fd, short events) {
   tasks_mutex_.unlock();
 
   // 处理任务
-  cout << "HThread::Notify() Thread " << id_ << " processing task." << endl;
+  cout << "Thread::Notify() Thread " << id_ << " processing task." << endl;
   task->Init();
 }
 
@@ -181,7 +181,7 @@ void HThread::Notify(evutil_socket_t fd, short events) {
  * @details 向线程发送激活消息(通过管道或者`socketpair`写入数据)
  *
  */
-void HThread::Activate() {
+void Thread::Activate() {
   // 向线程发送激活消息(通过管道写入数据)
   char buf[1] = {'c'};  // 发送一个字节的数据作为激活信号
 #ifdef _WIN32
@@ -192,7 +192,7 @@ void HThread::Activate() {
   ssize_t re = write(notify_send_fd_, buf, 1);
 #endif
   if (re <= 0) {
-    cerr << "HThread::Activate() Thread " << id_
+    cerr << "Thread::Activate() Thread " << id_
          << " failed to send activate signal." << endl;
   }
 }
@@ -202,11 +202,11 @@ void HThread::Activate() {
  *
  * @param task	任务对象指针
  */
-void HThread::AddTask(HTask* task) {
+void Thread::AddTask(Task* task) {
   // 添加处理的任务
   // 一个线程同时可以处理多个任务, 共用一个 event_base
   if (!task) {
-    cerr << "HThread::AddTask() Invalid task." << endl;
+    cerr << "Thread::AddTask() Invalid task." << endl;
     return;
   }
   task->set_base(base_);

@@ -1,14 +1,14 @@
 ﻿/**
  * @file hthread.h
  * @author L.J.H (3414467112@qq.com)
- * @brief `HThread`类声明
+ * @brief `Thread`类声明
  * @date 2025-10-24
  *
  * @copyright Copyright (c) 2025
  *
  */
-#ifndef HTHREAD_H
-#define HTHREAD_H
+#ifndef THREAD_H
+#define THREAD_H
 #include <event2/util.h>
 
 #include <list>
@@ -18,12 +18,12 @@
 
 _CROSSOCEAN_NAMESPACE_
 
-class HTask;
+class Task;
 
-class HThread {
+class Thread {
  public:
-  HThread();
-  ~HThread();
+  Thread();
+  ~Thread();
 
   /**
    * @brief 启动线程
@@ -72,7 +72,7 @@ class HThread {
    *
    * @param task	任务对象指针
    */
-  void AddTask(HTask* task);
+  void AddTask(Task* task);
 
   /// @brief 线程编号
   int id_;
@@ -84,11 +84,11 @@ class HThread {
   struct event_base* base_ = nullptr;
 
   /// @brief 线程任务列表
-  std::list<HTask*> tasks_;
+  std::list<Task*> tasks_;
   /// @brief 线程安全 互斥
   std::mutex tasks_mutex_;
 };
 
 _END_NAMESPACE_
 
-#endif  // HTHREAD_H
+#endif  // THREAD_H

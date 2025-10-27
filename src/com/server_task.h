@@ -2,17 +2,17 @@
 #define HSERVER_TASK_H
 
 #include "crossocean.h"
-#include "htask.h"
+#include "task.h"
 
 typedef void (*ListenCBFunc)(int socket_fd, struct sockaddr* addr, int socklen,
                              void* user_arg);
 
 _CROSSOCEAN_NAMESPACE_
 
-class HServerTask : public HTask {
+class ServerTask : public Task {
  public:
-  HServerTask() {}
-  ~HServerTask() {}
+  ServerTask() {}
+  ~ServerTask() {}
 
   virtual bool Init() override;
 

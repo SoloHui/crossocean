@@ -1,7 +1,7 @@
 ﻿/**
  * @file hthread_pool.h
  * @author L.J.H (3414467112@qq.com)
- * @brief `HThreadPool`类声明
+ * @brief `ThreadPool`类声明
  * @date 2025-10-24
  *
  * @copyright Copyright (c) 2025
@@ -16,18 +16,18 @@
 
 _CROSSOCEAN_NAMESPACE_
 
-class HThread;
-class HTask;
+class Thread;
+class Task;
 
-class CROSSOCEAN_API HThreadPool {
+class CROSSOCEAN_API ThreadPool {
  public:
   /**
-   * @brief 获取`HThreadPool`的静态对象 （静态函数）
+   * @brief 获取`ThreadPool`的静态对象 （静态函数）
    *
-   * @return HThreadPool* `HThreadPool`静态对象指针
+   * @return ThreadPool* `ThreadPool`静态对象指针
    */
-  static HThreadPool* GetInstance() {
-    static HThreadPool instance;
+  static ThreadPool* GetInstance() {
+    static ThreadPool instance;
     return &instance;
   }
 
@@ -51,10 +51,10 @@ class CROSSOCEAN_API HThreadPool {
    *
    * @param task 任务指针
    */
-  void Dispatch(HTask* task);
+  void Dispatch(Task* task);
 
  private:
-  HThreadPool() {};
+  ThreadPool() {};
 
  private:
   /// @brief 线程数量
@@ -64,7 +64,7 @@ class CROSSOCEAN_API HThreadPool {
   int last_thread_index_ = -1;
 
   /// @brief 线程池列表
-  std::vector<HThread*> threads_;
+  std::vector<Thread*> threads_;
 };
 
 _END_NAMESPACE_

@@ -1,7 +1,7 @@
 ﻿/**
  * @file htask.h
  * @author L.J.H (3414467112@qq.com)
- * @brief `HTask`类声明
+ * @brief `Task`类声明
  * @date 2025-10-24
  *
  * @copyright Copyright (c) 2025
@@ -16,7 +16,7 @@ struct event_base;
 
 _CROSSOCEAN_NAMESPACE_
 
-class HTask {
+class Task {
  public:
   /**
    * @brief 任务初始化函数 (纯虚函数)

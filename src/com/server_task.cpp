@@ -1,4 +1,4 @@
-﻿#include "hserver_task.h"
+﻿#include "server_task.h"
 
 #include <event2/event.h>
 #include <event2/listener.h>
@@ -11,24 +11,24 @@ _USING_CROSSOCEAN_NAMESPACE_
 static void SListenCB(struct evconnlistener* listener, evutil_socket_t fd,
                       struct sockaddr* addr, int socklen, void* user_arg) {
   // 这里可以处理新的连接请求
-  cout << "HServerTask::ListenCB(): New connection received." << endl;
+  cout << "ServerTask::ListenCB(): New connection received." << endl;
   // 获取任务对象指针
-  auto server_task = static_cast<HServerTask*>(user_arg);
+  auto server_task = static_cast<ServerTask*>(user_arg);
   // 调用用户定义的回调函数（如果有的话）
   if (server_task->ListenCB) {
     server_task->ListenCB(fd, addr, socklen, user_arg);
   } else {
     // 默认处理（如果没有用户定义的回调函数）
-    cout << "HServerTask::ListenCB(): No user-defined callback provided."
+    cout << "ServerTask::ListenCB(): No user-defined callback provided."
          << endl;
   }
 }
 
-bool HServerTask::Init() {
+bool ServerTask::Init() {
   // 处理客户端请求的连接
 
   if (server_port_ <= 0) {
-    cerr << "HServerTask::Init(): Invalid server port" << endl;
+    cerr << "ServerTask::Init(): Invalid server port" << endl;
     return false;
   }
 
@@ -52,10 +52,10 @@ bool HServerTask::Init() {
                               sizeof(client_addr));     // 地址长度
 
   if (!listener) {
-    cerr << "HServerTask::Init(): Failed to create listener" << endl;
+    cerr << "ServerTask::Init(): Failed to create listener" << endl;
     return false;
   }
-  cout << "HServerTask::Init(): Server listening on port " << server_port_
+  cout << "ServerTask::Init(): Server listening on port " << server_port_
        << endl;
   return true;
 }

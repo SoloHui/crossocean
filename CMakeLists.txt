@@ -14,7 +14,7 @@ project(xms LANGUAGES CXX)
 # add_subdirectory(src/test_thread_pool)
 
 # 动态库
-add_subdirectory(src/hcom)
+add_subdirectory(src/com)
 
 # 应用程序
 add_subdirectory(src/hdisk_server)

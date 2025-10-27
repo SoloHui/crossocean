@@ -8,17 +8,17 @@
 #cmakedefine _USING_CROSSOCEAN_NAMESPACE_ @_USING_CROSSOCEAN_NAMESPACE_@
 
 #ifndef _WIN32
-	#define CROSSOCEAN_API 
+#define CROSSOCEAN_API 
 #else
-	#ifdef COM_STATIC
-		#define CROSSOCEAN_API 
-	#else
-		#if COM_EXPORTS
-			#define CROSSOCEAN_API __declspec(dllexport)
-		#else
-			#define CROSSOCEAN_API __declspec(dllimport)
-		#endif
-	#endif
-#endif
+#ifdef COM_STATIC
+#define CROSSOCEAN_API 
+#else
+#if COM_EXPORTS
+#define CROSSOCEAN_API __declspec(dllexport)
+#else
+#define CROSSOCEAN_API __declspec(dllimport)
+#endif	// COM_EXPORTS
+#endif	// COM_STATIC
+#endif	// _WIN32
 
-#endif
+#endif	// CROSSOCEAN_H

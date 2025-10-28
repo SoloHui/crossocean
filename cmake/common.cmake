@@ -1,10 +1,10 @@
 # cmake/common.cmake
 
-# 公司名称缩写
-set(COMPANY_NAME "co")
+# 公司名称
+set(COMPANY_NAME "crossocean")
 # 统一的命名空间
-set(CROSSOCEAN_NAMESPACE "namespace co {")
-set(USING_CROSSOCEAN_NAMESPACE "using namespace co;")
+set(CROSSOCEAN_NAMESPACE "namespace crossocean {")
+set(USING_CROSSOCEAN_NAMESPACE "using namespace crossocean;")
 
 # CMAKE_SOURCE_DIR是项目根目录
 set(RUNTIME_DIR ${CMAKE_SOURCE_DIR}/bin)

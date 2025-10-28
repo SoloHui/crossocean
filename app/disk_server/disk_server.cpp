@@ -6,9 +6,11 @@
 #include <signal.h>
 #endif
 
-#include "hthread_pool.h"
+#include "crossocean.h"
+#include "thread_pool.h"
 
 using namespace std;
+USING_CROSSOCEAN_NAMESPACE
 
 int main(int argc, char const* argv[]) {
 #ifdef _WIN32
@@ -41,7 +43,7 @@ int main(int argc, char const* argv[]) {
   cout << "Using thread pool size: " << thread_num << endl;
 
   // 初始化线程池
-  HThreadPool::GetInstance()->Init(thread_num);
+  ThreadPool::GetInstance()->Init(thread_num);
 
   return 0;
 }

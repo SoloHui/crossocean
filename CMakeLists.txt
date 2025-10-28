@@ -17,4 +17,4 @@ project(xms LANGUAGES CXX)
 add_subdirectory(core/com)
 
 # 应用程序
-add_subdirectory(app/hdisk_server)
+add_subdirectory(app/disk_server)

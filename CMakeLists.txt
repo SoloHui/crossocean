@@ -13,8 +13,8 @@ project(xms LANGUAGES CXX)
 # add_subdirectory(src/test_event_udp)
 # add_subdirectory(src/test_thread_pool)
 
-# 动态库
-add_subdirectory(src/com)
+# 核心库
+add_subdirectory(core/com)
 
 # 应用程序
-add_subdirectory(src/hdisk_server)
+add_subdirectory(app/hdisk_server)

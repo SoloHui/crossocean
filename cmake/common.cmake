@@ -189,6 +189,9 @@ function(cpp_library name)
     endif()
 
     #############################################################
+    # 生成c++代码，传递命名空间
+    configure_file(${CMAKE_SOURCE_DIR}/cmake/crossocean.h.in ${CMAKE_CURRENT_LIST_DIR}/include/crossocean.h)
+
     # 查找项目的源码和头文件
     get_src_include()
 

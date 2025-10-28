@@ -27,6 +27,3 @@ else()
     target_link_libraries(${PROJECT_NAME} PRIVATE ${LIBEVENT_LIBRARIES})
     target_link_directories(${PROJECT_NAME} PRIVATE ${LIBEVENT_LIBRARY_DIRS})
 endif()
-
-# 生成c++代码，传递命名空间
-configure_file(crossocean.h.in ${CMAKE_CURRENT_LIST_DIR}/include/crossocean.h)

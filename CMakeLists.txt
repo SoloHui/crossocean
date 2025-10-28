@@ -1,17 +1,16 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(xms LANGUAGES CXX)
+project(crossocean LANGUAGES CXX)
 
-# 添加子目录
-# add_subdirectory(src/cpp_fmt)
-# add_subdirectory(src/firstcpp)
-# add_subdirectory(src/untitled)
-# add_subdirectory(src/testdox)
+# 引入 clang-format 模块
+include(cmake/clangformat.cmake)
+# 添加格式化所有代码的目标
+add_clang_format_all()
 
-# add_subdirectory(src/first_libevent)
-# add_subdirectory(src/test_event_server)
-# add_subdirectory(src/test_event_udp)
-# add_subdirectory(src/test_thread_pool)
+# 引入 cmake-format 模块
+include(cmake/cmakeformat.cmake)
+# 添加格式化所有 CMake 文件的目标
+add_cmake_format_all()
 
 # 核心库
 add_subdirectory(core/com)

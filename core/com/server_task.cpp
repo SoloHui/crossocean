@@ -3,6 +3,7 @@
 #include <event2/event.h>
 #include <event2/listener.h>
 
+#include <cstring>
 #include <iostream>
 
 using namespace std;

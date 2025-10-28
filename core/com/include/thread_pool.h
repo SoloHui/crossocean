@@ -14,7 +14,7 @@
 
 #include "crossocean.h"
 
-_CROSSOCEAN_NAMESPACE_
+CROSSOCEAN_NAMESPACE
 
 class Thread;
 class Task;
@@ -67,6 +67,6 @@ class CROSSOCEAN_API ThreadPool {
   std::vector<Thread*> threads_;
 };
 
-_END_NAMESPACE_
+END_NAMESPACE
 
 #endif

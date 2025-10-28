@@ -22,7 +22,7 @@
 #endif
 
 using namespace std;
-_USING_CROSSOCEAN_NAMESPACE_
+USING_CROSSOCEAN_NAMESPACE
 
 Thread::Thread() {}
 

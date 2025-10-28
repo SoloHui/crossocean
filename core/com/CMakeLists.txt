@@ -1,6 +1,6 @@
-# src/hcom/CMakeLists.txt
+# core/com/CMakeLists.txt
 
-# `hcom`库编译
+# `com`库编译
 cmake_minimum_required(VERSION 3.16)
 
 include(${CMAKE_SOURCE_DIR}/cmake/common.cmake)

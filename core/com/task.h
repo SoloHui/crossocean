@@ -14,7 +14,7 @@
 
 struct event_base;
 
-_CROSSOCEAN_NAMESPACE_
+CROSSOCEAN_NAMESPACE
 
 class Task {
  public:
@@ -74,6 +74,6 @@ class Task {
   int thread_id_ = 0;
 };
 
-_END_NAMESPACE_
+END_NAMESPACE
 
 #endif

@@ -7,7 +7,7 @@
 typedef void (*ListenCBFunc)(int socket_fd, struct sockaddr* addr, int socklen,
                              void* user_arg);
 
-_CROSSOCEAN_NAMESPACE_
+CROSSOCEAN_NAMESPACE
 
 class ServerTask : public Task {
  public:
@@ -27,6 +27,6 @@ class ServerTask : public Task {
   int server_port_;
 };
 
-_END_NAMESPACE_
+END_NAMESPACE
 
 #endif  // HSERVER_TASK_H

@@ -6,7 +6,7 @@
 #include <iostream>
 
 using namespace std;
-_USING_CROSSOCEAN_NAMESPACE_
+USING_CROSSOCEAN_NAMESPACE
 
 static void SListenCB(struct evconnlistener* listener, evutil_socket_t fd,
                       struct sockaddr* addr, int socklen, void* user_arg) {

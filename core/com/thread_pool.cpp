@@ -15,7 +15,7 @@
 #include "task.h"
 #include "thread.h"
 using namespace std;
-_USING_CROSSOCEAN_NAMESPACE_
+USING_CROSSOCEAN_NAMESPACE
 
 /**
  * @brief 初始化线程池

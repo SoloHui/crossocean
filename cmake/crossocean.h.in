@@ -3,9 +3,9 @@
 // 直接修改crossocean.h无效，需要修改crossocean.h.in
 
 // Namespace macros
-#define _END_NAMESPACE_ }
-#cmakedefine _CROSSOCEAN_NAMESPACE_  @_CROSSOCEAN_NAMESPACE_@
-#cmakedefine _USING_CROSSOCEAN_NAMESPACE_ @_USING_CROSSOCEAN_NAMESPACE_@
+#define END_NAMESPACE }
+#cmakedefine CROSSOCEAN_NAMESPACE  @CROSSOCEAN_NAMESPACE@
+#cmakedefine USING_CROSSOCEAN_NAMESPACE @USING_CROSSOCEAN_NAMESPACE@
 
 #ifndef _WIN32
 #define CROSSOCEAN_API 

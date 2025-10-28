@@ -16,7 +16,7 @@
 
 #include "crossocean.h"
 
-_CROSSOCEAN_NAMESPACE_
+CROSSOCEAN_NAMESPACE
 
 class Task;
 
@@ -89,6 +89,6 @@ class Thread {
   std::mutex tasks_mutex_;
 };
 
-_END_NAMESPACE_
+END_NAMESPACE
 
 #endif  // THREAD_H

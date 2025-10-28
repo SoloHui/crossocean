@@ -1,4 +1,4 @@
-﻿# app/disk_server/CMakeLists.txt
+# app/disk_server/CMakeLists.txt
 
 cmake_minimum_required(VERSION 3.16)
 
@@ -13,10 +13,9 @@ cpp_execute(${PROJECT_NAME} com)
 
 # Winsock networking support
 if(WIN32)
-    target_link_libraries(${PROJECT_NAME} PRIVATE ws2_32)
+  target_link_libraries(${PROJECT_NAME} PRIVATE ws2_32)
 endif()
 
 # 配置动态库的头文件路径
-target_include_directories(${PROJECT_NAME} PRIVATE
-    ${CMAKE_SOURCE_DIR}/core/com/include
-)
+target_include_directories(${PROJECT_NAME}
+                           PRIVATE ${CMAKE_SOURCE_DIR}/core/com/include)

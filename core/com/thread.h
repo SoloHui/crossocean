@@ -16,6 +16,8 @@
 
 #include "crossocean.h"
 
+struct event_base;
+
 CROSSOCEAN_NAMESPACE
 
 class Task;
@@ -81,7 +83,7 @@ class Thread {
   /// @brief 用于激活线程的管道写入端文件描述符
   int notify_send_fd_ = 0;
   /// @brief libevent 事件循环对象
-  struct event_base* base_ = nullptr;
+  ::event_base* base_ = nullptr;
 
   /// @brief 线程任务列表
   std::list<Task*> tasks_;

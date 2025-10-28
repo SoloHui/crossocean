@@ -1,6 +1,6 @@
 ﻿#ifndef CROSSOCEAN_H
 #define CROSSOCEAN_H
-// 直接修改crossocean.h无效，需要修改crossocean.h.in
+// 直接修改`crossocean.h`无效，需要修改`cmake/crossocean.h.in`
 
 // Namespace macros
 #define END_NAMESPACE }

@@ -6,6 +6,8 @@
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/build/windows_debug",
       "cacheVariables": {
+        "BUILD_FORMAT": "ON",
+        "BUILD_TEST": "ON",
         "CMAKE_BUILD_TYPE": "Debug",
         "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
         "CMAKE_INSTALL_PREFIX": "${sourceDir}/out"
@@ -16,6 +18,8 @@
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/build/windows_release",
       "cacheVariables": {
+        "BUILD_FORMAT": "OFF",
+        "BUILD_TEST": "OFF",
         "CMAKE_BUILD_TYPE": "Release",
         "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
         "CMAKE_INSTALL_PREFIX": "${sourceDir}/out"
@@ -26,6 +30,8 @@
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/build/linux_debug",
       "cacheVariables": {
+        "BUILD_FORMAT": "ON",
+        "BUILD_TEST": "ON",
         "CMAKE_BUILD_TYPE": "Debug",
         "CMAKE_INSTALL_PREFIX": "${sourceDir}/out"
       }
@@ -35,6 +41,8 @@
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/build/linux_release",
       "cacheVariables": {
+        "BUILD_FORMAT": "OFF",
+        "BUILD_TEST": "OFF",
         "CMAKE_BUILD_TYPE": "Release",
         "CMAKE_INSTALL_PREFIX": "${sourceDir}/out"
       }

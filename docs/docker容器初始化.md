@@ -36,6 +36,20 @@ sudo apt install -y iputils-ping net-tools
 
 sudo apt install -y ninja-build
 
+sudo apt install -y cmake-format
+
+```
+
+```bash
+# 19
+deb http://apt.llvm.org/jammy/ llvm-toolchain-jammy-19 main
+# deb-src http://apt.llvm.org/jammy/ llvm-toolchain-jammy main
+
+sudo vim /etc/apt/sources.list
+
+sudo apt update
+
+sudo apt install clang-format-19
 ```
 
 5. vscode 配置工作空间

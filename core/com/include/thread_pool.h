@@ -7,8 +7,8 @@
  * @copyright Copyright (c) 2025
  *
  */
-#ifndef HTHREAD_POOL_H
-#define HTHREAD_POOL_H
+#ifndef THREAD_POOL_H
+#define THREAD_POOL_H
 
 #include <vector>
 
@@ -69,4 +69,4 @@ class CROSSOCEAN_API ThreadPool {
 
 END_NAMESPACE
 
-#endif
+#endif  // THREAD_POOL_H

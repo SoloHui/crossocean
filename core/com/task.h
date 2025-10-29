@@ -7,8 +7,8 @@
  * @copyright Copyright (c) 2025
  *
  */
-#ifndef HTASK_H
-#define HTASK_H
+#ifndef TASK_H
+#define TASK_H
 
 #include "crossocean.h"
 
@@ -76,4 +76,4 @@ class Task {
 
 END_NAMESPACE
 
-#endif
+#endif  // TASK_H

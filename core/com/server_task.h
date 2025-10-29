@@ -1,5 +1,5 @@
-﻿#ifndef HSERVER_TASK_H
-#define HSERVER_TASK_H
+﻿#ifndef SERVER_TASK_H
+#define SERVER_TASK_H
 
 #include "crossocean.h"
 #include "task.h"
@@ -29,4 +29,4 @@ class ServerTask : public Task {
 
 END_NAMESPACE
 
-#endif  // HSERVER_TASK_H
+#endif  // SERVER_TASK_H

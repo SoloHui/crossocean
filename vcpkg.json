@@ -12,6 +12,10 @@
       "features": [
         "zlib"
       ]
+    },
+    {
+      "name": "gtest",
+      "features": []
     }
   ]
 }

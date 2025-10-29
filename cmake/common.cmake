@@ -28,8 +28,10 @@ endmacro()
 # 配置编译参数
 macro(set_cpp name)
   # 设置头文件查找路径
-  target_include_directories(${name} PRIVATE ${CMAKE_CURRENT_LIST_DIR}/include/
-                                             ${CMAKE_CURRENT_LIST_DIR})
+  target_include_directories(
+    ${name}
+    PRIVATE ${CMAKE_CURRENT_LIST_DIR}/include/ ${CMAKE_CURRENT_LIST_DIR}
+            ${CMAKE_CURRENT_LIST_DIR}/../include ${CMAKE_CURRENT_LIST_DIR}/../)
 
   # 配置vs属性 bigobj
   if(MSVC)
@@ -92,35 +94,38 @@ function(cpp_test name)
   # 获取当前目录下源码和头文件
   get_src_include()
 
+  # 获取测试源码
+  aux_source_directory(${CMAKE_CURRENT_LIST_DIR}/../ TEST_SRC)
+  list(APPEND SRC ${TEST_SRC})
+
   # 添加执行程序
   add_executable(${name} ${SRC})
   set_cpp(${name})
-
-  set_target_properties(${name} PROPERTIES MSVC_RUNTIME_LIBRARY
-                                           MultiThreadedDebug)
 
   # 设置 find_package 查找路径
   find_package(GTest)
   message("GTest = ${GTest_FOUND}")
 
-  # gtest 库查找路径
-  target_link_directories(${name} PRIVATE ${GTEST_PATH}/lib)
-
-  # gtest 头文件路径
-  target_include_directories(${name} PRIVATE ${GTEST_PATH}/include)
   if(WIN32)
-    target_link_libraries(${name} GTest::gtest_main)
+    target_link_libraries(${name} PRIVATE GTest::gtest_main)
   else()
-    target_link_libraries(${name} gtest_main gtest)
-    target_link_libraries(${name} pthread)
+    target_link_libraries(${name} PRIVATE gtest_main gtest)
+    target_link_libraries(${name} PRIVATE pthread)
+    # gtest 库查找路径
+    target_link_directories(${name} PRIVATE ${GTEST_LIBRARY_DIRS})
+    # gtest 头文件路径
+    target_include_directories(${name} ${GTEST_INCLUDE_DIRS})
   endif()
 
   # 联合ctest和gtest
   include(GoogleTest)
   gtest_discover_tests(${name})
 
-  # 打开才能运行ctest
-  enable_testing()
+  message("  Run with: cmake --build ${CMAKE_BINARY_DIR} --target ${name}")
+  # 提取${name}后的路径名(如: test_com 对应 core/com/test)
+  string(REPLACE "test_" "" test_dir ${name})
+  message(
+    "  Run with: ctest --test-dir ${CMAKE_BINARY_DIR}/core/${test_dir}/test")
 
   message(
     "==========================================================================================\n"
@@ -154,6 +159,8 @@ function(cpp_execute name)
       target_link_libraries(${name} PRIVATE ${lib_name}${debug_postfix})
     endforeach()
   endif()
+
+  message("  Run with: cmake --build ${CMAKE_BINARY_DIR} --target ${name}")
   message(
     "==========================================================================================\n"
   )
@@ -225,6 +232,8 @@ function(cpp_library name)
     COMPATIBILITY SameMajorVersion # 版本兼容问题
   )
   install(FILES ${CONF_VER_FILE} DESTINATION lib/config/${name}-${version})
+
+  message("  Run with: cmake --build ${CMAKE_BINARY_DIR} --target ${name}")
   message(
     "==========================================================================================\n"
   )

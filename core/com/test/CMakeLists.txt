@@ -25,3 +25,5 @@ else()
   target_link_libraries(${PROJECT_NAME} PRIVATE ${LIBEVENT_LIBRARIES})
   target_link_directories(${PROJECT_NAME} PRIVATE ${LIBEVENT_LIBRARY_DIRS})
 endif()
+
+target_compile_definitions(${PROJECT_NAME} PRIVATE "COM_STATIC")

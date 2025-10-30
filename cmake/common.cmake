@@ -114,7 +114,7 @@ function(cpp_test name)
     # gtest 库查找路径
     target_link_directories(${name} PRIVATE ${GTEST_LIBRARY_DIRS})
     # gtest 头文件路径
-    target_include_directories(${name} ${GTEST_INCLUDE_DIRS})
+    target_include_directories(${name} PRIVATE ${GTEST_INCLUDE_DIRS})
   endif()
 
   # 联合ctest和gtest

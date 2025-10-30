@@ -6,6 +6,8 @@
 #include <event2/event.h>
 #include <gtest/gtest.h>
 
+#include <thread>
+
 using namespace crossocean;
 
 // ==================== ServerTask 测试 ====================
